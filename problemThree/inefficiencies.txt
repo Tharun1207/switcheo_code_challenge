@@ -1,0 +1,20 @@
+Inefficiencies:
+
+1. 'children' and '..rest' variables are destructured frim 'props' but never used in the component, hence being unnecessary and can be removed.
+
+ 2. 'lhsPriority' and 'leftPriority' are used inconsistently within the sorting function, leading to confusion on the reader's part.
+
+ 3. Multiple sorting:
+ - 'sortedBalances' array is being sorted multiple times. 
+ - First, it is filtered, which is a sort in itself. Then, it is sorted based on priorities. 
+ - This can lead to inefficiency in large arrays
+
+ 4. 'useWalletbalances' and 'usePrices' functions are called without memoization, which can lead to unnecessary computational overhead when performing
+ expensive calculations or fetching data repeatedly.
+
+ 5. 'Zilliqa' and 'Neo' results in the same return statement, which results in redundancy and unclean code
+
+ 6. 'getPriority' function takes 'blockchain' as an argument with type 'any', which can be improved by giving it a type.
+
+
+ The refactored code implementation is in temp-app folder, where refactored.tsx has the refactored code.
