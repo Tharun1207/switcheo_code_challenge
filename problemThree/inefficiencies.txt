@@ -1,20 +1,33 @@
 Inefficiencies:
 
-1. 'children' and '..rest' variables are destructured frim 'props' but never used in the component, hence being unnecessary and can be removed.
+ 1. Missing parameters
+  - 'blockchain' parameter is used in the 'getPriority' function call in the definition of 'sortedBalances' function,
+    but it's not declared in WalletBalance interface.
+  - 'usdValue' is added later into the code, in the rows variable, but it can be done during the sorting and formatting
+    stage, and also storing it as an attribute for FormattedWalletBalance interface, as it is essentially a formatting 
+    technique. 
 
- 2. 'lhsPriority' and 'leftPriority' are used inconsistently within the sorting function, leading to confusion on the reader's part.
+ 2. Repetition of interface instead of extension
+  - FormattedWalletBalance interface includes the attributes in the WalletBalance interface, but adds a few more attributes, 
+    making it a sub interface.
+  - Extension hence makes sense here to avoid this repetition.
 
- 3. Multiple sorting:
- - 'sortedBalances' array is being sorted multiple times. 
- - First, it is filtered, which is a sort in itself. Then, it is sorted based on priorities. 
- - This can lead to inefficiency in large arrays
+ 3. Unnecessary destructuring and extension of props when they are unused 
+  - 'children' and '..rest' variables are destructured from 'props' but never used in the component, hence being unnecessary and can be removed.
+  - Unnecessary extenstion of BoxProps to implement Props 
 
- 4. 'useWalletbalances' and 'usePrices' functions are called without memoization, which can lead to unnecessary computational overhead when performing
- expensive calculations or fetching data repeatedly.
+ 4. Inefficiencies in error handling
+  - Error handling in 'useEffect' block in WalletPage component can be improved using a try-catch block
+  - This ensures robustness and gracefulness when handling errors
 
- 5. 'Zilliqa' and 'Neo' results in the same return statement, which results in redundancy and unclean code
+ 5. Lack of concise logic
+  - 'Zilliqa' and 'Neo' results in the same return statement, which results in redundancy and unclean code
+  - Sorting logic returns the difference of rightPriority and leftPriority, which removes the unnecessary 'else' case
+    and hence cleaner and efficient code
 
- 6. 'getPriority' function takes 'blockchain' as an argument with type 'any', which can be improved by giving it a type.
+ 6. Separate formatting
+  - Creates an additional loop for the formatting of the wallet balances provided, causing unnecessary overhead
+  - Solved by formatting them right after the sort, eliminating the additional loop and unnecessary overhead
 
 
  The refactored code implementation is in temp-app folder, where refactored.tsx has the refactored code.

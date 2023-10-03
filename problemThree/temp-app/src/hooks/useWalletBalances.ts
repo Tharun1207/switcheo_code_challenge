@@ -6,6 +6,7 @@ interface WalletBalance {
   blockchain: string;
 }
 
+// For testing purposes
 const mockWalletBalances: WalletBalance[] = [
   { currency: 'ETH', amount: 5.0, blockchain: 'Ethereum' },
   { currency: 'BTC', amount: 2.0, blockchain: 'Bitcoin' },
